@@ -12,9 +12,10 @@ const envconfigPrefix = "AZURE"
 type Config struct {
 	Environment    azure.Environment
 	SubscriptionID string `envconfig:"SUBSCRIPTION_ID" required:"true"`
-	TenantID       string `envconfig:"TENANT_ID" required:"true"`
-	ClientID       string `envconfig:"CLIENT_ID" required:"true"`
-	ClientSecret   string `envconfig:"CLIENT_SECRET" required:"true"`
+	TenantID       string `envconfig:"TENANT_ID" required:"false"`
+	ClientID       string `envconfig:"CLIENT_ID" required:"false"`
+	ClientSecret   string `envconfig:"CLIENT_SECRET" required:"false"`
+	AccessToken    string `envconfig:"ACCESS_TOKEN" required:"false"`
 }
 
 type tempConfig struct {

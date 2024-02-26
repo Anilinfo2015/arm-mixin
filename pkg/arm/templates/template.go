@@ -2,7 +2,7 @@ package templates
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 
 	"github.com/pkg/errors"
 )
@@ -14,5 +14,5 @@ func (d deployer) FindTemplate(template string) ([]byte, error) {
 		return nil, errors.Wrap(err, fmt.Sprintf("couldn't find template %s", template))
 	}
 	defer f.Close()
-	return ioutil.ReadAll(f)
+	return io.ReadAll(f)
 }

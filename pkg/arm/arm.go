@@ -3,8 +3,7 @@ package arm
 
 import (
 	"bufio"
-	"fmt"
-	"io/ioutil"
+	"io"
 
 	resourcesSDK "github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2017-05-10/resources"
 
@@ -40,7 +39,7 @@ func (m *Mixin) LoadConfigFromEnvironment() error {
 
 func (m *Mixin) getPayloadData() ([]byte, error) {
 	reader := bufio.NewReader(m.In)
-	data, err := ioutil.ReadAll(reader)
+	data, err := io.ReadAll(reader)
 	return data, errors.Wrap(err, "could not read the payload from STDIN")
 }
 
@@ -54,9 +53,10 @@ func (m *Mixin) getARMDeployer() (arm.Deployer, error) {
 		azureConfig.TenantID,
 		azureConfig.ClientID,
 		azureConfig.ClientSecret,
+		azureConfig.AccessToken,
 	)
 	if err != nil {
-		return nil, errors.Wrap(err, fmt.Sprintf("couldn't build ARM deployer %s", err))
+		return nil, errors.Wrap(err, "couldn't build ARM deployer")
 	}
 
 	resourceDeploymentsClient := resourcesSDK.NewDeploymentsClientWithBaseURI(
