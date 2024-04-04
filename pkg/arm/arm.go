@@ -4,6 +4,7 @@ package arm
 import (
 	"bufio"
 	"io"
+	"time"
 
 	resourcesSDK "github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2017-05-10/resources"
 
@@ -64,6 +65,8 @@ func (m *Mixin) getARMDeployer() (arm.Deployer, error) {
 		azureSubscriptionID,
 	)
 	resourceDeploymentsClient.Authorizer = authorizer
+	// Sets polling duration of the deployment client as per the configuration.
+	resourceDeploymentsClient.PollingDuration = time.Duration(azureConfig.PollingDuration) * time.Minute
 
 	resourceGroupsClient := resourcesSDK.NewGroupsClientWithBaseURI(
 		azureConfig.Environment.ResourceManagerEndpoint,

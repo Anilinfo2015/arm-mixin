@@ -66,6 +66,7 @@ func GetBearerTokenAuthorizer(
 		}
 
 		grantFlow = Undefined
+		sptParameters.ClientID = claims.AppID
 		sptParameters.TenantID = claims.TenantID
 		if len(claims.RegisteredClaims.Audience) != 0 {
 			sptParameters.Resource = claims.RegisteredClaims.Audience[0]
