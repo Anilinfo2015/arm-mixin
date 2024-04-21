@@ -26,7 +26,6 @@ func New() *Mixin {
 	return &Mixin{
 		RuntimeConfig: runtime.NewConfig(),
 	}
-
 }
 
 func (m *Mixin) LoadConfigFromEnvironment() error {
