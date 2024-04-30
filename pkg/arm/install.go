@@ -24,6 +24,7 @@ type InstallArguments struct {
 	Name          string                 `yaml:"name"`
 	ResourceGroup string                 `yaml:"resourceGroup"`
 	Parameters    map[string]interface{} `yaml:"parameters"`
+	Settings      map[string]interface{} `yaml:"settings"`
 }
 
 func (m *Mixin) Install(ctx context.Context) error {
@@ -42,8 +43,17 @@ func (m *Mixin) Install(ctx context.Context) error {
 	}
 	step := action.Steps[0]
 
+	var pollingDuration int = 30
+	settings := step.Settings
+	if settings != nil {
+		// Check if settings contains pollingDuration
+		if duration, ok := settings["pollingDuration"].(int); ok {
+			pollingDuration = duration
+		}
+	}
+
 	// Get the arm deployer
-	deployer, err := m.getARMDeployer()
+	deployer, err := m.getARMDeployer(pollingDuration)
 	if err != nil {
 		return err
 	}
