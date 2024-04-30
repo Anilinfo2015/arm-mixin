@@ -1,7 +1,7 @@
 package templates
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -15,7 +15,7 @@ import (
 
 func newTestDeployer(ctx *portercontext.TestContext) Deployer {
 	env, _ := azure.EnvironmentFromName("")
-	authorizer, _ := auth.GetBearerTokenAuthorizer(env, "", "", "")
+	authorizer, _ := auth.GetBearerTokenAuthorizer(env, "", "", "", "")
 	resourceDeploymentsClient := resourcesSDK.NewDeploymentsClientWithBaseURI(
 		"",
 		"",
@@ -32,7 +32,7 @@ func newTestDeployer(ctx *portercontext.TestContext) Deployer {
 }
 func TestLoadTemplate(t *testing.T) {
 	ctx := portercontext.NewTestContext(t)
-	b, err := ioutil.ReadFile("testdata/test-arm.json")
+	b, err := os.ReadFile("testdata/test-arm.json")
 	require.NoError(t, err)
 	ctx.AddTestFile("testdata/test-arm.json", "/cnab/app/arm/aci.json")
 	d := newTestDeployer(ctx)

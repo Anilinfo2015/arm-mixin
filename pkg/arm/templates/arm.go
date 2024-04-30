@@ -463,7 +463,8 @@ func getOutputs(
 	deployment *resourcesSDK.DeploymentExtended,
 ) (map[string]interface{}, error) {
 	outputs, ok := deployment.Properties.Outputs.(map[string]interface{})
-	if !ok {
+	// Check for outputs parsing error and existence of any elements.
+	if !ok && len(outputs) != 0 {
 		return nil, errors.New("error decoding deployment outputs")
 	}
 	retOutputs := map[string]interface{}{}
