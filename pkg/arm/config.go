@@ -10,13 +10,13 @@ const envconfigPrefix = "AZURE"
 // Config represents details necessary for the broker to interact with
 // an Azure subscription
 type Config struct {
-	Environment     azure.Environment
-	SubscriptionID  string `envconfig:"SUBSCRIPTION_ID" required:"true"`
-	TenantID        string `envconfig:"TENANT_ID" required:"false"`
-	ClientID        string `envconfig:"CLIENT_ID" required:"false"`
-	ClientSecret    string `envconfig:"CLIENT_SECRET" required:"false"`
-	AccessToken     string `envconfig:"ACCESS_TOKEN" required:"false"`
-	PollingDuration int    `envconfig:"POLLING_DURATION" required:"false"`
+	Environment                        azure.Environment
+	SubscriptionID                     string `envconfig:"SUBSCRIPTION_ID" required:"true"`
+	TenantID                           string `envconfig:"TENANT_ID" required:"false"`
+	ClientID                           string `envconfig:"CLIENT_ID" required:"false"`
+	ClientSecret                       string `envconfig:"CLIENT_SECRET" required:"false"`
+	AccessToken                        string `envconfig:"ACCESS_TOKEN" required:"false"`
+	Microsoft_StatusDBConnectionString string `envconfig:"AZURE_STATUSDB_CONNECTION_STRING" required:"false"`
 }
 
 type tempConfig struct {

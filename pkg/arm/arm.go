@@ -43,7 +43,7 @@ func (m *Mixin) getPayloadData() ([]byte, error) {
 	return data, errors.Wrap(err, "could not read the payload from STDIN")
 }
 
-func (m *Mixin) getARMDeployer() (arm.Deployer, error) {
+func (m *Mixin) getARMDeployer(pollingDuration int) (arm.Deployer, error) {
 
 	azureConfig := m.cfg
 	azureSubscriptionID := azureConfig.SubscriptionID
@@ -65,7 +65,7 @@ func (m *Mixin) getARMDeployer() (arm.Deployer, error) {
 	)
 	resourceDeploymentsClient.Authorizer = authorizer
 	// Sets polling duration of the deployment client as per the configuration.
-	resourceDeploymentsClient.PollingDuration = time.Duration(azureConfig.PollingDuration) * time.Minute
+	resourceDeploymentsClient.PollingDuration = time.Duration(pollingDuration) * time.Minute
 
 	resourceGroupsClient := resourcesSDK.NewGroupsClientWithBaseURI(
 		azureConfig.Environment.ResourceManagerEndpoint,

@@ -13,6 +13,9 @@
             "name": {
               "type": "string"
             },
+            "type": {
+              "type": "string"
+            },
             "template": {
               "type": "string"
             },
@@ -23,6 +26,12 @@
               "type": "object",
               "additionalProperties": {
                 "type": "string"
+              }
+            },
+            "settings": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
               }
             }
           },

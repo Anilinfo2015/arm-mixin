@@ -1,0 +1,13 @@
+install:
+  - arm:
+      description: "Create an Azure Storage Account"
+      type: arm
+      template: "arm/testdata/storage.json"
+      name: test-storage
+      resourceGroup: test-rg
+      parameters:
+        location: eastus
+        storageAccountName: test-storage
+        storageContainerName: test-container
+      settings:
+          pollingDuration: 30
